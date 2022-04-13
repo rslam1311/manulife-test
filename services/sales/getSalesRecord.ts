@@ -2,13 +2,16 @@ import { SalesRecordModel } from "./model/SalesRecord";
 import { validations } from "./utils";
 import addDays from "date-fns/addDays";
 
-export const getSalesRecord = (from: string, to: string) => {
+export const getSalesRecord = (
+  from: string | undefined,
+  to: string | undefined
+) => {
   if (!from && !to) {
     return getAllSalesRecord();
   }
 
   if (!from || !to) {
-    return getSalesRecordFromSingleDate(from ?? to);
+    return getSalesRecordFromSingleDate((from ?? to)!);
   }
 
   return getSalesRecordFromDateRage(from, to);
@@ -39,7 +42,7 @@ const getSalesRecordFromDateRage = async (from: string, to: string) => {
 const getSalesRecordFromSingleDate = async (date: string) => {
   try {
     const targetDate = new Date(date);
-    validations.validateLastPurchaseDate(targetDate);
+    validations.validateDate(targetDate);
 
     const query = {
       $and: [

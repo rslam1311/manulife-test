@@ -37,7 +37,7 @@ const validateDbObj = (obj: SalesRecord) => {
     validateAge,
     validateGender,
     validateHeight,
-    validateLastPurchaseDate,
+    validateDate,
     validateSaleAmount,
   } = validations;
 
@@ -46,5 +46,5 @@ const validateDbObj = (obj: SalesRecord) => {
   validateHeight(height);
   validateGender(gender);
   validateSaleAmount(saleAmount);
-  validateLastPurchaseDate(lastPurchaseDate);
+  validateDate(lastPurchaseDate);
 };

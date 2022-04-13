@@ -18,10 +18,15 @@ export const validateSaleAmount = (saleAmount: number) => {
   if (saleAmount <= 0) throw new Error("Invalid SaleAmount");
 };
 
-export const validateLastPurchaseDate = (lastPurchaseDate: Date) => {
-  const milliSecondsInUTC = lastPurchaseDate.valueOf();
-  if (milliSecondsInUTC > new Date().valueOf() || milliSecondsInUTC < 0)
-    throw new Error("Invalid LastPurchaseDate");
+export const validateDate = (date: Date) => {
+  const milliSecondsInUTC = date.valueOf();
+
+  if (
+    milliSecondsInUTC > new Date().valueOf() ||
+    milliSecondsInUTC < 0 ||
+    isNaN(milliSecondsInUTC)
+  )
+    throw new Error("Invalid Date");
 };
 
 export const validateGetSalesRecordDto = (from: string, to: string) => {
@@ -34,6 +39,6 @@ export const validateGetSalesRecordDto = (from: string, to: string) => {
   if (fromTimeValue > toTimeValue)
     throw new Error("The date To must be larger than From");
 
-  validateLastPurchaseDate(fromDate);
-  validateLastPurchaseDate(toDate);
+  validateDate(fromDate);
+  validateDate(toDate);
 };

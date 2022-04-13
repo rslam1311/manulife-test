@@ -26,7 +26,11 @@ export const saveCsvDataToDb = (req: Request) =>
     };
 
     const onError = (error: Error) =>
-      reject({ status: "error", msg: error.message });
+      reject({
+        status: "error",
+        msg: error.message,
+        firstItemOnBatch: data[0]?.lastPurchaseDate,
+      });
 
     const onEnd = async (rowCount: number) => {
       const isLastBatch = true;
