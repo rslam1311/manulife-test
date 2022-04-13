@@ -5,10 +5,11 @@
   "author": "rslam",
   "license": "MIT",
   "scripts": {
+    "test": "yarn ts-node generateCSV.ts && NETWORK=local yarn jest --runInBand",
     "build": "npx tsc",
     "start": "ts-node main.ts",
     "dev": "nodemon main.ts",
-    "image": "yarn build && docker-compose -f docker-compose.yaml",
+    "build:image": "yarn build && docker-compose -f docker-compose.yaml build",
     "up": "docker-compose -f docker-compose.yaml up -d",
     "down": "docker-compose -f docker-compose.yaml down"
   },
@@ -18,11 +19,13 @@
     "@types/node": "^17.0.23",
     "jest": "^27.5.1",
     "nodemon": "^2.0.15",
+    "supertest": "^6.2.2",
     "ts-jest": "^27.1.4",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.3"
   },
   "dependencies": {
+    "@types/supertest": "^2.0.12",
     "date-fns": "^2.28.0",
     "express": "^4.17.3",
     "fast-csv": "^4.3.6",

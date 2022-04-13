@@ -2,24 +2,14 @@ import { createReadStream } from "fs";
 import mongoose from "mongoose";
 import { SalesRecordModel } from "./model/SalesRecord";
 import { saveCsvDataToDb } from "./saveCsvDataToDb";
-import path from "path";
 import { connectDb } from "../../utils/connectDb";
-
-type FileVariant = "normal" | "wrong format" | "";
-
-const getFilename = (variant: FileVariant) => {
-  switch (variant) {
-    case "normal":
-      return "mock.csv";
-    case "wrong format":
-      return "main.ts";
-  }
-};
+import { getFilepath } from "../../utils/path";
+import type { FileVariant } from "../../utils/path";
 
 const getMockReq = (variant: FileVariant) => {
-  const filename = getFilename(variant);
-  const filepath = path.join(__dirname, `../../${filename}`);
-  return createReadStream(filepath);
+  const filepath = getFilepath(variant);
+
+  return createReadStream(filepath!);
 };
 
 describe("saveCsvDataToDb", () => {
